@@ -1,8 +1,14 @@
+import ai
 def getAllChatMessages():
   pass
 
-def addChatMessage():
-  pass
+def addChatMessage(username,message):
+  ms = ai.misinformationChoose(message)
+  if ms > 5:
+    message = message + " (This seems to be minor misinformation)"
+  if ms > 8:
+    message = "this message seems to contain deep misinformation that can be harmful, please stop sending these messages"
+  file = open
 
 def resetChat():
   file = open("data/chatLogs", "w")
