@@ -13,3 +13,6 @@ def sendMessage():
 @app.route("/addUser")
 def addUser():
   pass
+
+if __name__ == "__main__":
+  app.run(debug=True)
