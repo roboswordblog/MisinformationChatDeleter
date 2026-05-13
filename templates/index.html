@@ -148,25 +148,49 @@
         
       }
      async function getChat(){
-      var username = document.getElementById("username");
-      var code = document.getElementById("code");
-      data = {"username":username, "code":code}
-      chatData = await fetch('/getChat', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        });
-      }
+
+    var username = document.getElementById("username");
+    var code = document.getElementById("code");
+
+    const data = {
+      username: username.value,
+      code: code.value
+    };
+
+    try {
+
+      const response = await fetch('/getChat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      // WAIT for json conversion
+      chatData = await response.json();
+
+      console.log(chatData);
+
+      // NOW check result
       if (chatData.error === true){
-        document.getElementById("error").style.display = "block"
-        document.getElementById("errorText").innerText = "The code is incorrect or the username has been taken. Please try getting the correct code or switching to a different username"
+
+        document.getElementById("error").style.display = "block";
+
+        document.getElementById("errorText").innerText =
+          "The code is incorrect or the username has been taken.";
+
+      } else {
+
+        document.getElementById("joinChat").style.display = "none";
+        document.getElementById("chat").style.display = "block";
+
       }
-      else{
-        document.getElementById("joinChat").style.display = "none"
-        document.getElementById("chat").style.display = "block"
-      }
+
+    } catch(err){
+      console.log(err);
+    }
+  }
       async function createChat(){
 
       }

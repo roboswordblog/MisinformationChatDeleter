@@ -10,14 +10,20 @@ def index():
 def sendMessage():
   pass
 
-@app.route("/getChat")
-def getChat():
+@app.route("/getChat", methods=["GET", "POST"])
+@app.route('/getChat', methods=['POST'])
+def get_chat():
 
-  webData = request.get_json()
-  stuff = getChat(webData["code"])
-  data = {"error":stuff != False,"chatMessages":stuff}
+    data = request.get_json()
 
-  return data
+    username = data.get("username")
+    code = data.get("code")
 
+    a = getChat(code)
+
+    return jsonify({
+        "error": a,
+        "messages": a
+    })
 if __name__ == "__main__":
   app.run(debug=True)
