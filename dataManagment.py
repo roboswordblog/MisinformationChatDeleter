@@ -6,7 +6,11 @@ def makeChat(code):
   file.close()
 
 def getChat(code):
-  file = open(f"data/chats/{code}", "r")
+  try :
+    file = open(f"data/chats/{code}", "r")
+  except FileNotFoundError:
+    return False
+
   chatMessages = {}
   for line in file.read().split("\n"):
     chatMessages[line.split("|")[0]] = line.split("|")[1]

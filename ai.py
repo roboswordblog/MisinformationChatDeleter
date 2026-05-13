@@ -1,3 +1,4 @@
+import random
 from openai import OpenAI
 
 client = OpenAI()
@@ -12,4 +13,5 @@ def misinformationChooser(message):
 
   Only return the misinformation score for each message.
   """
+  return random.randint(1,10)
   
