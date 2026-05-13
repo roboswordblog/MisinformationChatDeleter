@@ -1,10 +1,16 @@
 import ai
 
 def makeChat(code):
-  pass
+  file = open(f"data/chats/{code}", "w")
+  file.write("System|Hello, this is your new chat")
+  file.close()
 
 def getChat(code):
-  pass
+  file = open(f"data/chats/{code}", "r")
+  chatMessages = {}
+  for line in file.read().split("\n"):
+    chatMessages[line.split("|")[0]] = line.split("|")[1]
+  return chatMessages
 
 def getAllChatMessages():
   pass
