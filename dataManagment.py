@@ -1,5 +1,11 @@
 import ai
 
+def makeChat(code):
+  pass
+
+def getChat(code):
+  pass
+
 def getAllChatMessages():
   pass
 
