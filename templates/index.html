@@ -150,7 +150,18 @@
      async function getChat(){
       var username = document.getElementById("username");
       var code = document.getElementById("code");
-
+      data = {"username":username, "code":code}
+      chatData = await fetch('/getChat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+      }
+      if (chatData.error === true){
+        document.getElementById("error").style.display = "block"
+        document.getElementById("errorText").innerText = "The code is incorrect or the username has been taken. Please try getting the correct code or switching to a different username"
       }
       async function createChat(){
 
