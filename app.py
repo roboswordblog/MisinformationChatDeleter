@@ -12,7 +12,7 @@ def sendMessage():
 
 @app.route("/getChat")
 def getChat():
-  pass
+  return {}
 
 if __name__ == "__main__":
   app.run(debug=True)
