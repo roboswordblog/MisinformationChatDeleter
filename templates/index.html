@@ -257,7 +257,6 @@ async function getChat(){
     getMessages();
 }
 
-
 async function sendMessage(){
 
     const data = {
@@ -275,8 +274,9 @@ async function sendMessage(){
     });
 
     document.getElementById("postMessage").value = "";
-}
 
+    getMessages();
+}
 
 async function getMessages(){
 

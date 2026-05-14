@@ -14,6 +14,8 @@ def sendMessage():
     data = request.get_json()
     post = data.get("message")
     username = data.get("username")
+    code = data.get("code")
+    addChatMessage(username, post, code)
     return jsonify({"message": post})
 
 @app.route("/getAllMessages", methods=["GET", "POST"])
