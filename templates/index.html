@@ -255,7 +255,7 @@ button{
 
         document.getElementById("joinChat").style.display = "none";
         document.getElementById("chat").style.display = "block";
-        document.getElementById("codeTextTitle").innerHTML = "Misinformation Block " + code.value;
+        document.getElementById("codeTextTitle").innerHTML = code.value;
 
       }
 
@@ -269,6 +269,7 @@ button{
       async function sendMessage(){
       const data = {
       message: document.getElementById("postMessage").value,
+      code: document.getElementById("code").value
       }
             const response = await fetch('/sendMessage', {
           method: 'POST',

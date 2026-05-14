@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, session
 from dataManagment import *
 
 app = Flask(__name__)
@@ -11,7 +11,8 @@ def index():
 
 @app.route("/sendMessage")
 def sendMessage():
-    pass
+    data = request.get_json()
+    post = data.get("message")
 
 
 @app.route('/getChat', methods=['POST'])
