@@ -4,123 +4,190 @@
     <title>Chat</title>
      <style>
       *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family:Arial, Helvetica, sans-serif;
-      }
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
 
-      body{
-        background:#0f1117;
-        color:#f1f1f1;
-        min-height:100vh;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-      }
+body{
+  background:
+    radial-gradient(circle at top left,#1b2235 0%,#0b0f18 45%),
+    radial-gradient(circle at bottom right,#2d1d10 0%,transparent 35%);
+  color:#f5f7ff;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
 
-      #chat{
-        display:none;
-      }
+#chat{
+  display:none;
+}
 
-      #error{
-        display:none;
-      }
+#error{
+  display:none;
+}
 
-      .joinChat,
-      #chat{
-        width:90%;
-        max-width:500px;
-        background:#1a1d26;
-        border:1px solid #2a2f3a;
-        border-radius:16px;
-        overflow:hidden;
-        box-shadow:0 0 25px rgba(0,0,0,0.4);
-      }
+.joinChat,
+#chat{
+  width:90%;
+  max-width:560px;
+  background:#121826;
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:
+    0 10px 40px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.02);
+  backdrop-filter:blur(10px);
+}
 
-      .navbar{
-        background:#151821;
-        padding:20px;
-        border-bottom:1px solid #2a2f3a;
-      }
+.navbar{
+  background:linear-gradient(
+    135deg,
+    #1d4ed8 0%,
+    #2563eb 55%,
+    #f97316 100%
+  );
+  padding:24px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
 
-      .navbar h1{
-        font-size:24px;
-        color:#7aa2ff;
-        text-align:center;
-      }
+.navbar h1{
+  font-size:26px;
+  color:white;
+  text-align:center;
+  letter-spacing:0.5px;
+  font-weight:700;
+}
 
-      .joinChat{
-        padding-bottom:25px;
-      }
+.joinChat{
+  padding-bottom:28px;
+}
 
-      input{
-        width:calc(100% - 40px);
-        margin:20px 20px 0 20px;
-        padding:14px;
-        border:none;
-        border-radius:10px;
-        background:#262b36;
-        color:white;
-        font-size:16px;
-        outline:none;
-        transition:0.2s;
-      }
+input{
+  width:calc(100% - 40px);
+  margin:20px 20px 0 20px;
+  padding:16px;
+  border:none;
+  border-radius:14px;
+  background:#1b2435;
+  color:white;
+  font-size:16px;
+  outline:none;
+  border:1px solid transparent;
+  transition:0.25s;
+}
 
-      input::placeholder{
-        color:#9aa4b2;
-      }
+input::placeholder{
+  color:#93a0ba;
+}
 
-      input:focus{
-        border:1px solid #7aa2ff;
-        box-shadow:0 0 10px rgba(122,162,255,0.3);
-      }
+input:focus{
+  border:1px solid #3b82f6;
+  box-shadow:
+    0 0 0 4px rgba(59,130,246,0.15),
+    0 0 18px rgba(59,130,246,0.25);
+}
 
-      button{
-        width:calc(100% - 40px);
-        margin:20px 20px 0 20px;
-        padding:14px;
-        border:none;
-        border-radius:10px;
-        font-size:16px;
-        font-weight:bold;
-        cursor:pointer;
-        transition:0.2s;
-      }
+button{
+  width:calc(100% - 40px);
+  margin:20px 20px 0 20px;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
 
-      .joinButton{
-        background:#4f7cff;
-        color:white;
-      }
+.joinButton{
+  background:linear-gradient(135deg,#2563eb,#3b82f6);
+  color:white;
+  box-shadow:0 6px 20px rgba(37,99,235,0.35);
+}
 
-      .joinButton:hover{
-        background:#3f6ef5;
-        transform:translateY(-2px);
-      }
+.joinButton:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(37,99,235,0.45);
+}
 
-      .createClass{
-        background:#2f3542;
-        color:#f1f1f1;
-      }
+.createClass{
+  background:linear-gradient(135deg,#ea580c,#fb923c);
+  color:white;
+  box-shadow:0 6px 20px rgba(249,115,22,0.3);
+}
 
-      .createClass:hover{
-        background:#3c4454;
-        transform:translateY(-2px);
-      }
+.createClass:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(249,115,22,0.45);
+}
 
-      .error{
-        margin:20px;
-        padding:14px;
-        border-radius:10px;
-        background:#3a1f25;
-        border:1px solid #ff4d6d;
-      }
+.error{
+  margin:20px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(220,38,38,0.12);
+  border:1px solid rgba(248,113,113,0.3);
+}
 
-      .errorText{
-        color:#ff8fa3;
-        text-align:center;
-        font-size:15px;
-      }
+.errorText{
+  color:#fca5a5;
+  text-align:center;
+  font-size:15px;
+}
+
+.messages{
+  padding:20px;
+  min-height:300px;
+  max-height:400px;
+  overflow-y:auto;
+  background:#0f1725;
+}
+
+.messages::-webkit-scrollbar{
+  width:8px;
+}
+
+.messages::-webkit-scrollbar-thumb{
+  background:#334155;
+  border-radius:20px;
+}
+
+.message{
+  background:#1e293b;
+  border-left:4px solid #3b82f6;
+  padding:14px;
+  margin-bottom:14px;
+  border-radius:14px;
+  animation:fadeIn 0.2s ease;
+}
+
+.message b{
+  color:#60a5fa;
+}
+
+.chatInputArea{
+  padding-bottom:20px;
+}
+
+#postMessage{
+  margin-top:0;
+}
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
     </style>
   </head>
   <body>
@@ -139,11 +206,13 @@
     <div id="chat">
       <div class="navbar">
         <h1 id="codeTextTitle">Misinformation Block Chat</h1>
-        <div id="messageDiv" class="messages">
-        </div>
-        <input id="postMessage" placeHolder="Send your message">
-        <button onclick="sendMessage()">Send Post</button>
+
+
       </div>
+      <div id="messageDiv" class="messages">
+        </div>
+      <input id="postMessage" placeholder="Send your message">
+        <button onclick="sendMessage()">Send Post</button>
     </div>
     <script>
       var code;
@@ -171,13 +240,11 @@
         body: JSON.stringify(data)
       });
 
-      // WAIT for json conversion
       chatData = await response.json();
 
       console.log(chatData);
 
-      // NOW check result
-      if (chatData.error === true){
+      if (chatData.error === false){
 
         document.getElementById("error").style.display = "block";
 
@@ -188,7 +255,7 @@
 
         document.getElementById("joinChat").style.display = "none";
         document.getElementById("chat").style.display = "block";
-        document.getElementById("codeTextTitle").innerHtml = "Misinformation Block " + code.value;
+        document.getElementById("codeTextTitle").innerHTML = "Misinformation Block " + code.value;
 
       }
 
@@ -200,7 +267,19 @@
 
       }
       async function sendMessage(){
-        
+      const data = {
+      message: document.getElementById("postMessage").value,
+      }
+            const response = await fetch('/sendMessage', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      chatData = await response.json();
+
       }
     </script>
   </body>
