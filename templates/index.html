@@ -214,74 +214,113 @@ button{
       <input id="postMessage" placeholder="Send your message">
         <button onclick="sendMessage()">Send Post</button>
     </div>
-    <script>
-      var code;
-      var chatData = {};
-      async function showChat(){
-        
-      }
-     async function getChat(){
+<script>
 
-    var username = document.getElementById("username");
-    var code = document.getElementById("code");
+let renderedKeys = new Set();
+let pollingStarted = false;
 
-    const data = {
-      username: username.value,
-      code: code.value
-    };
+async function getChat(){
 
-    try {
+    const username = document.getElementById("username").value;
+    const code = document.getElementById("code").value;
 
-      const response = await fetch('/getChat', {
+    const data = { code };
+
+    const response = await fetch('/getChat', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      });
+    });
 
-      chatData = await response.json();
+    const chatData = await response.json();
 
-      console.log(chatData);
-
-      if (chatData.error === false){
+    if (chatData.error === false){
 
         document.getElementById("error").style.display = "block";
-
         document.getElementById("errorText").innerText =
-          "The code is incorrect or the username has been taken.";
+            "The code is incorrect or the username has been taken.";
 
-      } else {
-
-        document.getElementById("joinChat").style.display = "none";
-        document.getElementById("chat").style.display = "block";
-        document.getElementById("codeTextTitle").innerHTML = code.value;
-
-      }
-
-    } catch(err){
-      console.log(err);
+        return;
     }
-  }
-      async function createChat(){
 
-      }
-      async function sendMessage(){
-      const data = {
-      message: document.getElementById("postMessage").value,
-      code: document.getElementById("code").value
-      }
-            const response = await fetch('/sendMessage', {
-          method: 'POST',
-          headers: {
-          'Content-Type': 'application/json'
+    document.getElementById("joinChat").style.display = "none";
+    document.getElementById("chat").style.display = "block";
+    document.getElementById("codeTextTitle").innerHTML = code;
+
+    if (!pollingStarted){
+        setInterval(getMessages, 1000);
+        pollingStarted = true;
+    }
+
+    getMessages();
+}
+
+
+async function sendMessage(){
+
+    const data = {
+        message: document.getElementById("postMessage").value,
+        code: document.getElementById("code").value,
+        username: document.getElementById("username").value
+    };
+
+    await fetch('/sendMessage', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
-      });
+    });
 
-      chatData = await response.json();
+    document.getElementById("postMessage").value = "";
+}
 
-      }
-    </script>
+
+async function getMessages(){
+
+    const code = document.getElementById("code").value;
+
+    const response = await fetch("/getAllMessages", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ code })
+    });
+
+    const messagesData = await response.json();
+
+    const container = document.getElementById("messageDiv");
+
+    const messages = messagesData.messages;
+
+    // messages is a DICT: { user: message }
+
+    for (const user in messages){
+
+        const key = user + "|" + messages[user];
+
+        if (!renderedKeys.has(key)){
+
+            const newDiv = document.createElement("div");
+
+            newDiv.className = "message";
+
+            newDiv.innerHTML = `
+                <div class="username"><b>${user}</b></div>
+                <p>${messages[user]}</p>
+            `;
+
+            container.appendChild(newDiv);
+            renderedKeys.add(key);
+
+            container.scrollTop = container.scrollHeight;
+        }
+    }
+}
+
+</script>
   </body>
 </html>

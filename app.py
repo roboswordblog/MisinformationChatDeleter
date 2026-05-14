@@ -9,17 +9,22 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/sendMessage")
+@app.route("/sendMessage", methods=["POST"])
 def sendMessage():
     data = request.get_json()
     post = data.get("message")
+    username = data.get("username")
+    return jsonify({"message": post})
+
+@app.route("/getAllMessages", methods=["GET", "POST"])
+def getAllMessages():
+    return jsonify({"messages": getAllChatMessages(request.get_json().get("code"))})
 
 
 @app.route('/getChat', methods=['POST'])
 def get_chat():
     data = request.get_json()
 
-    username = data.get("username")
     code = data.get("code")
 
     a = getChat(code)

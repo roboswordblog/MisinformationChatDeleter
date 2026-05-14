@@ -19,8 +19,12 @@ def getChat(code):
     return chatMessages
 
 
-def getAllChatMessages():
-    pass
+def getAllChatMessages(code):
+    chatMessages = {}
+    file = open(f"data/chats/{code}", "r")
+    for line in file.read().split("\n"):
+        chatMessages[line.split("|")[0]] = line.split("|")[1]
+    return chatMessages
 
 
 def addChatMessage(username, message):
